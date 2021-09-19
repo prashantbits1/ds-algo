@@ -10,18 +10,19 @@ public class LinkedList {
    *   |  data  |-->next
    *    --------
    */
-  class Node{
-	  int data;
-	  Node next;
-	  // Constructor to create new node
-	  Node(int data){
-		  this.data = data;
-		  this.next = null;
-	  }
-  }
-  
-  Node head;
-  
+	class Node {
+		int data;
+		Node next;
+
+		// Constructor to create new node
+		Node(int data) {
+			this.data = data;
+			this.next = null;
+		}
+	}
+
+	Node head;
+
   // we can insert the data into LinkedList in three ways: 1- From the front, 2- After a given node, 3- At the end of LinkedList
   
   /**
@@ -55,7 +56,7 @@ public class LinkedList {
 		head = newNode;
 	}
 
- /**
+  /**
    * This function inserts the data in-between into LinkedList.
    *  Here the arrow(->) represents next pointer.
    *  1- Given LL:                                             head-> data1 -> data2 -> null
@@ -78,7 +79,7 @@ public class LinkedList {
 		prevNode.next = newNode;
 	}
 
-/**
+  /**
    * This function inserts the data at the end of LinkedList.
    *  Here the arrow(->) represents next pointer.
    *  1- Given LL:                                                          head-> data1 -> data2 -> null
@@ -108,5 +109,46 @@ public class LinkedList {
 		}
 		lastNode.next = newNode;
 	}
- 
+	
+	/**
+	 * This function delete the data of given node.
+	 * 
+	 * Here the arrow(->) represents next pointer.
+	 * 1- Given LL:                                                                        head -> data1 -> data2 -> data3 -> null
+	 * 2- Create two pointers: tempNode -> head, prevNode -> null
+	 * 3- Search node of given data and initialize the prevNode by the data previous node: head -> data1 -> data2 -> data3 -> null
+	 *                                                                                               /.\       /.\
+	 *                                                                                                |         |
+	 *                                                                                             prevNode    tempNode
+	 *                                                                                             
+	 * 4- Initialize the prevNode.next by tempNode.next:                                   head -> data1 -> data2 -> data3 -> null
+	 *                                                                                               |               /.\
+	 *                                                                                              \./               |
+	 *                                                                                             prevNode-----------
+	 * 
+	 * 
+	 * @param data
+	 */
+	public void delete(int data) {
+		// Step-1: Initialize the tempNode by head, and a prevNode by null
+		Node tempNode = head;
+		Node prevNode = null;
+		// Step-2: Check if the head node itself holds the data
+		if (tempNode != null && tempNode.data == data) {
+			head = tempNode.next;
+			return;
+		}
+		// Step-3: Search the node that contains the data and keep the track the
+		// prevNode as need to change tempNode.next
+		while (tempNode != null && tempNode.data != data) {
+			prevNode = tempNode;
+			tempNode = tempNode.next;
+		}
+		// Step-4: Check if the data is not present
+		if (tempNode == null)
+			return;
+		// Step-5: Detach the node from linkedList
+		prevNode.next = tempNode.next;
+	}
+
 }
