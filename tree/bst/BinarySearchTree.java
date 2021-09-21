@@ -8,23 +8,23 @@ import java.util.List;
  * A Binary Search Tree is a rooted binary tree, in which the root node stores the data and the address of
  * left and right child, and to satisfy the BST property the left node must me smaller than the parent node, 
  * the right node must be greater than the parent node.
- * 
+ *
  * Basic core entity of BST:
- *                   
+ *
  *                       node1
  *                       /   \
  *   (leftNode < node1) /     \ (rightNode > node1)
  *                     /       \
  *                leftNode    rightNode
- * 
- * 
+ *
+ *
  * BST operations:
  *   - search
  *   - traverse
  *   - insertion
  *   - delete
- * 
- * 
+ *
+ *
  * @author Prashant Singh
  *
  */
@@ -54,27 +54,27 @@ public class BinarySearchTree {
 		// traverse from root(using recursion) and update the left child(not returning, it always return root)
 		if (value < currentNode.value) {
 			currentNode.left = addRecursive(currentNode.left, value);
-		//Step-3: If currentNode value is greater than the insert value,
-		// traverse from root(using recursion) and update the right child(not returning, it always return root)
+			//Step-3: If currentNode value is greater than the insert value,
+			// traverse from root(using recursion) and update the right child(not returning, it always return root)
 		} else if (value > currentNode.value) {
 			currentNode.right = addRecursive(currentNode.right, value);
 		} else {
-		// value already exist
+			// value already exist
 			return currentNode;
 		}
 		// return after the left/right child update
 		return currentNode;
 	}
-	
+
 	/**
 	 * Insert data into BST.
-	 * 
+	 *
 	 * @param value
 	 */
 	public void add(int value) {
 		root = addRecursive(root, value);
 	}
-    
+
 	private TreeNode addIterative(TreeNode currentNode, int value) {
 		// Step-1: Base condition, when value is insert from root
 		if (currentNode == null) {
@@ -100,19 +100,19 @@ public class BinarySearchTree {
 	}
 	/**
 	 * Insert data into BST using iterative approach.
-	 * 
+	 *
 	 * @param value
 	 */
 	public void addIterative(int value) {
 		root = addIterative(root, value);
 	}
-	
+
 	/**
 	 * TRAVERSAL: POST-ORDER-TRAVERSAL
-	 * 
+	 *
 	 * Policy: L(traverse left node)-R(right node)-D(root node)
 	 * In this traversal, we have to execute postOrderTraversal policy(LRD) at each node. 
-	 * 
+	 *
 	 * @param root
 	 * @return
 	 */
@@ -138,7 +138,7 @@ public class BinarySearchTree {
 	 *
 	 * Policy: D(root node)-L(traverse left node)-R(right node)
 	 * In this traversal, we have to execute preOrderTraversal policy(DLR) at each node.
-	 * 
+	 *
 	 * @param root
 	 * @return
 	 */
@@ -162,10 +162,10 @@ public class BinarySearchTree {
 
 	/**
 	 * TRAVERSAL: IN-ORDER-TRAVERSAL
-	 * 
+	 *
 	 * Policy: L(traverse left node)-D(root node)-R(right node)
 	 * In this traversal, we have to execute inOrderTraversal policy(LDR) at each node.
-	 * 
+	 *
 	 * @param root
 	 * @return
 	 */
@@ -217,7 +217,7 @@ public class BinarySearchTree {
 
 	// DELETE: 1-RECURSIVE 2-ITERATIVE
 	public TreeNode deleteNodeRecursive(TreeNode root, int deleteData) {
-	    // Step-1: Base condition deleteData is not found
+		// Step-1: Base condition deleteData is not found
 		if(root == null) return null;
 		// Step-2: Search the node which matched the deleteData using recursive approach
 		//if the deleteData is less than currentNode recur the left, otherwise right
@@ -234,19 +234,19 @@ public class BinarySearchTree {
 				return null; // update root to null
 			}
 			// case-2: Delete node that has both child
-	    	else if(root.left != null && root.right != null) {
-	    		/**
-	    		 *           root
-	    		 *         /      \
-	    		 *        /        \ 
-	    		 *      N1          N2 <---delete(1- find the maxNode(N12) of leftChild, 2- Update N2 data by maxNode data,
-	    		 *     / \          / \           3-Delete maxNode)
-	    		 *    /   \        /    \
-	    		 *   N3   N4      N5     N6 
-	    		 *  / \   / \    /  \    / \
-	    		 * N7 N8 N9 N10 N11 N12 N13 N14
-	    		 *          
-	    		 */
+			else if(root.left != null && root.right != null) {
+				/**
+				 *           root
+				 *         /      \
+				 *        /        \
+				 *      N1          N2 <---delete(1- find the maxNode(N12) of leftChild, 2- Update N2 data by maxNode data,
+				 *     / \          / \           3-Delete maxNode)
+				 *    /   \        /    \
+				 *   N3   N4      N5     N6
+				 *  / \   / \    /  \    / \
+				 * N7 N8 N9 N10 N11 N12 N13 N14
+				 *
+				 */
 				// find the maxNode
 				TreeNode maxNode = getMaxTreeNode(root.left);
 				// update the currentNode data by maxNode data
@@ -255,8 +255,8 @@ public class BinarySearchTree {
 				root.left = deleteNodeRecursive(root.left, maxNode.value); // already have the logic to delete leaf node
 			}
 			// case-3: Delete the node that has one child
-	    	/**
-		     *           root
+			/**
+			 *           root
 			 *         /      \
 			 *        /        \ 
 			 *      N1          N2 <---delete(1-Find the child node of currentNode(N2)
@@ -265,7 +265,7 @@ public class BinarySearchTree {
 			 *   N3   N4            N6 
 			 *  / \   / \          /  \
 			 * N7 N8 N9 N10      N13  N14
-	    	 */
+			 */
 			else {
 				// find child node of currentNode
 				TreeNode childNode = root.left != null ? root.left : root.right;
@@ -274,14 +274,14 @@ public class BinarySearchTree {
 		}
 		return root;
 	}
-	
+
 	private TreeNode getMaxTreeNode(TreeNode currentNode) {
 		while (currentNode.right != null) {
 			currentNode = currentNode.right;
 		}
 		return currentNode;
 	}
-	
+
 	public TreeNode deleteNodeIterative(TreeNode root, int deleteData) {
 		// Step-1: Create pointers to store the currentNode and parent of currentNode
 		TreeNode currentNode = root;
@@ -313,20 +313,20 @@ public class BinarySearchTree {
 				return null;
 			}
 		}
-    	// case-2: Delete node that has both child
-    	else if(currentNode.left != null && currentNode.right != null) {
-    		/**
-    		 *           root
-    		 *         /      \
-    		 *        /        \ 
-    		 *      N1          N2 <---delete(1- find the minNode(N13) of rightChild, 2- Update N2 data by minNode data,
-    		 *     / \          / \           3-Delete minNode)
-    		 *    /   \        /    \
-    		 *   N3   N4      N5     N6 
-    		 *  / \   / \    /  \    / \
-    		 * N7 N8 N9 N10 N11 N12 N13 N14
-    		 *          
-    		 */
+		// case-2: Delete node that has both child
+		else if(currentNode.left != null && currentNode.right != null) {
+			/**
+			 *           root
+			 *         /      \
+			 *        /        \
+			 *      N1          N2 <---delete(1- find the minNode(N13) of rightChild, 2- Update N2 data by minNode data,
+			 *     / \          / \           3-Delete minNode)
+			 *    /   \        /    \
+			 *   N3   N4      N5     N6
+			 *  / \   / \    /  \    / \
+			 * N7 N8 N9 N10 N11 N12 N13 N14
+			 *
+			 */
 			// find the minNode
 			TreeNode minNode = getMinTreeNode(currentNode.right);
 			int minNodeData = minNode.value;
@@ -335,18 +335,18 @@ public class BinarySearchTree {
 			// update the currentNode by minNode data
 			currentNode.value = minNodeData;
 		}
-    	// case-3: Delete the node that has one child
-    	/**
-	     *           root
+		// case-3: Delete the node that has one child
+		/**
+		 *           root
 		 *         /      \
-		 *        /        \ 
+		 *        /        \
 		 *      N1          N2 <---delete(1-Find the child node of currentNode(N2) 2-Check for root node
 		 *     / \            \           3- Initialize the parentNode by child node)
 		 *    /   \            \
-		 *   N3   N4            N6 
+		 *   N3   N4            N6
 		 *  / \   / \          /  \
 		 * N7 N8 N9 N10      N13  N14
-    	 */
+		 */
 		else {
 			// find child node of currentNode
 			TreeNode childNode = currentNode.left != null ? currentNode.left : currentNode.right;
@@ -362,42 +362,43 @@ public class BinarySearchTree {
 				root = childNode;
 			}
 		}
-    	return root;
-    }
-	
-    private TreeNode getMinTreeNode(TreeNode currentNode) {
-    	while(currentNode.left != null) {
-    		currentNode = currentNode.left;
-    	}
-    	return currentNode;
-    }
+		return root;
+	}
+
+	private TreeNode getMinTreeNode(TreeNode currentNode) {
+		while (currentNode.left != null) {
+			currentNode = currentNode.left;
+		}
+		return currentNode;
+	}
+
 	// runner
 	public static void main(String[] args) {
 		BinarySearchTree bst = new BinarySearchTree();
-		
+
 		// insert operation
-		int inputs[] = {50, 22, 3, 6, 44, 9};
+		int inputs[] = { 50, 22, 3, 6, 44, 9 };
 		for (int input : inputs) {
 			bst.addIterative(input);
 		}
-		
+
 		// traverse
 		List<Integer> inOrderTraversals = bst.inOrderTraversal(bst.root);
 		System.out.println(inOrderTraversals);
-		
+
 		// search
 		System.out.println(bst.searchRecursive(bst.root, 44).value);
 		System.out.println(bst.searchIterative(bst.root, 50).value);
-		
+
 		// delete
-		//bst.root = bst.deleteNodeRecursive(bst.root, 9);
-		//bst.root = bst.deleteNodeRecursive(bst.root, 50);
-		//bst.root = bst.deleteNodeRecursive(bst.root, 3);
-		//System.out.println(bst.inOrderTraversal(bst.root));
+		// bst.root = bst.deleteNodeRecursive(bst.root, 9);
+		// bst.root = bst.deleteNodeRecursive(bst.root, 50);
+		// bst.root = bst.deleteNodeRecursive(bst.root, 3);
+		// System.out.println(bst.inOrderTraversal(bst.root));
 		bst.root = bst.deleteNodeIterative(bst.root, 50);
-		//bst.root = bst.deleteNodeIterative(bst.root, 44);
-		//bst.root = bst.deleteNodeIterative(bst.root, 3);
+		// bst.root = bst.deleteNodeIterative(bst.root, 44);
+		// bst.root = bst.deleteNodeIterative(bst.root, 3);
 		System.out.println(bst.inOrderTraversal(bst.root));
-		
+
 	}
 }
